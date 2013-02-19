@@ -70,7 +70,7 @@ sub dataframe_sort_uniqer{
 	
 	chomp( my $dir = `pwd`); 
 #print $dir."\n";
-	my $tmpout = $dir."/"."tmp.file";
+	my $tmpout = $dir."/"."uniq.intron.producer.tmpfile";
 #print $tmpout ."\n";
 	open TMPOUT,">$tmpout" || die $!;
 	print TMPOUT "$inputdataframe" ;
