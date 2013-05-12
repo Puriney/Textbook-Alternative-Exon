@@ -1,72 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <title>Cassette Exon Finder by Puriney</title>
 
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <title>Textbook-alternative-exon by Puriney</title>
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>Textbook-alternative-exon</h1>
-        <h2>Textbook Alternative Exon Finder</h2>
-        <a href="https://github.com/Puriney/Textbook-Alternative-Exon" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Cassette Exon Finder</h1>
+        <p class="header">Finding cassette exon based on gene annotation</p>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>Aim</h1>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/Puriney/Textbook-Alternative-Exon/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/Puriney/Textbook-Alternative-Exon/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/Puriney/Textbook-Alternative-Exon">View On GitHub</a></li>
+        </ul>
 
-<p>TAEF is composed by three <code>Perl</code> scripts as a pipeline to drag out the textbook alternative exon. </p>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Puriney">Puriney</a></p>
 
-<h1>Textbook alternative exon</h1>
 
-<p>TAE means: </p>
+      </header>
+      <section>
+        <h1>Alternative Splicing &amp; Cassette Exon</h1>
 
-<ul>
-<li>present in isoform_A while absent from isoform_B</li>
-<li>flanking two exons in isoform_A just happens to be exactly the same as isoform_B</li>
-</ul><h1>Note</h1>
+<p><img src="http://www.wormbook.org/chapters/www_altsplicing/AltSplicingfig1.jpg" alt="Schematic diagram showing alternative splicing"></p>
 
-<p>This pipeline? Just for fun. BTW, <code>intersectBED</code> of <code>BEDTools</code> package should be installed. <code>Perl</code> works like a scaffold. </p>
+<p>Alternative splicing makes main contributions to mamaalian trancriptome dynamics, and futher proteomic complexity. Cassette exon is the largest category (over 60%) of alternative exon which includes many other forms, like alternative 5' splicing, alternative 3' splicing, mutually exlusive exon, etc. <strong>[1]</strong> Cassette exon is related to disease, like SMA (Spinal Muscular Atrophy), a neorodegenerative disorder, which is direclty caused by SMN1 defiency. The inclusion of exon-7 among SMN gene leads to SMN1 transcripts in normal people, while the unexpected exlusion (or skipping) leads to SMN2 which finally results in infantile death. <strong>[2,3]</strong> This example indicates RNA splicing is worthwhile to be studied and also that is why SMN1/SMN2 becomes the model isoform in RNA splicing research field. </p>
 
-<h1>Afterwards</h1>
+<h1>Work Flow</h1>
 
-<p>GitHub is blocked. I feel guilty as GitHub is always my CV site and slides site. Not many useful scripts are shared (indeed my skills and knowledge cannot enable me to do that = = ). Thus, here is TAEF. </p>
+<p>This package aims to find all the cassette exon based on well-documented annotation. Indeed, this is simplly texts filering work. </p>
 
-<p>Jan 21 2013. </p>
-        </section>
+<p><img src="https://raw.github.com/Puriney/Textbook-Alternative-Exon/master/figures/cassette_exon_finder%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="Working Flow"></p>
 
-        <aside id="sidebar">
-          <a href="https://github.com/Puriney/Textbook-Alternative-Exon/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/Puriney/Textbook-Alternative-Exon/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+<p>The key is to find all the exons absent in one isoform are precisely present in the corresponding intron of anther differnt isoform among the same gene. </p>
 
-          <p class="repo-owner"><a href="https://github.com/Puriney/Textbook-Alternative-Exon"></a> is maintained by <a href="https://github.com/Puriney">Puriney</a>.</p>
+<h1>Perl Scripts</h1>
 
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+<ol>
+<li><code>uniq_intron_producer.pl</code></li>
+<li><code>exon_with_flanking_corrd_producer.pl</code></li>
+<li><code>strict_cassette_exon_producer.pl</code></li>
+<li>
+<code>cassette_exon_simplifier.pl</code> (which is optional)</li>
+</ol><h1>Others</h1>
+
+<p>As Perl is used as a scaffold, BEDTools toolbox must be employed here for convinience. </p>
+
+<h1>Refs</h1>
+
+<ol>
+<li>Wang, E. T., Sandberg, R., Luo, S., Khrebtukova, I., Zhang, L., Mayr, C., Kingsmore, S. F., et al. (2008). Alternative isoform regulation in human tissue transcriptomes. Nature.<br>
+</li>
+<li>Scholl, R., Meyer, K., &amp; Schümperli, D. (2007). Position and functional importance of the branch site preceding SMN exon7, (March), 34–37.</li>
+<li>Coady, T. H., Baughan, T. D., Shababi, M., Passini, M. a, &amp; Lorson, C. L. (2008). Development of a single vector system that enhances trans-splicing of SMN2 transcripts. PloS one, 3(10), e3468. </li>
+</ol>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
     </div>
-
-  
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
